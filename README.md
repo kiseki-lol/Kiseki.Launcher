@@ -7,8 +7,7 @@ Launches Kiseki game clients from the website
 
 ## Setup
 
-**Linux**
-`cd Kiseki.Launcher.Linux && dotnet run`
+Linux: `cd Kiseki.Launcher.Linux && dotnet run`
 
 ## License
 
