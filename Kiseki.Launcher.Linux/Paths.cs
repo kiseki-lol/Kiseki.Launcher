@@ -1,4 +1,4 @@
-namespace Kiseki.Launcher.Windows;
+namespace Kiseki.Launcher.Linux;
 
 public static class Paths
 {

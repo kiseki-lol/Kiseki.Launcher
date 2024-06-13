@@ -1,6 +1,6 @@
 using Microsoft.Win32;
 
-namespace Kiseki.Launcher.Windows;
+namespace Kiseki.Launcher.Linux;
 
 public class Protocol : Interfaces.IProtocol
 {

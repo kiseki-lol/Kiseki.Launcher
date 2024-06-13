@@ -1,6 +1,7 @@
-﻿using Kiseki.Launcher.Windows.Properties;
+﻿/*
+using Kiseki.Launcher.Windows.Properties;
 
-namespace Kiseki.Launcher.Windows;
+namespace Kiseki.Launcher.Linux;
 
 [System.ComponentModel.DesignerCategory("")]
 public class MainWindow : Form
@@ -95,3 +96,4 @@ public class MainWindow : Form
         Page.ProgressBar!.State = TaskDialogProgressBarState.Error;
     }
 }
+*/

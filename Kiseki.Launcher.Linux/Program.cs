@@ -1,12 +1,14 @@
 using System.Diagnostics;
+using Gtk;
+using Gdk;
 
-namespace Kiseki.Launcher.Windows;
+namespace Kiseki.Launcher.Linux;
 
 internal static class Program
 {
-    [STAThread]
     static void Main(string[] args)
     {
+        /*
         if (args.Length > 0 && args[0] == "-uninstall")
         {
             Bootstrapper.Uninstall(args[0] == "-quiet");
@@ -67,8 +69,27 @@ internal static class Program
 
             return;
         }
+        */
 
-        ApplicationConfiguration.Initialize();
-        Application.Run(new MainWindow(args[0]));
+        Application.Init();
+
+        Gtk.Window win = new Gtk.Window("Kiseki Launcher");
+        win.Resize(200, 80);
+        win.DeleteEvent += delegate { Application.Quit(); };
+
+        Fixed fix = new Fixed();
+        Label label = new Label("Starting Kiseki...");
+        
+        fix.Put(label, 20, 20);
+
+        ProgressBar progressBar = new ProgressBar();
+        progressBar.Fraction = 0.0;
+        fix.Put(progressBar, 20, 55);
+
+        win.Add(fix);
+
+        win.ShowAll();
+
+        Application.Run();
     }
 }

@@ -1,4 +1,5 @@
-namespace Kiseki.Launcher.Windows;
+/*
+namespace Kiseki.Launcher.Linux;
 
 using System.Diagnostics;
 using System.IO.Compression;
@@ -119,7 +120,6 @@ public class Bootstrapper : Interfaces.IBootstrapper
             }
         }
 
-        */
 
         var clientRelease = await Http.GetJson<ClientRelease>(Web.FormatUrl($"/api/setup/{Arguments["Version"]}"));
         bool clientUpToDate = true;
@@ -515,3 +515,4 @@ public class Bootstrapper : Interfaces.IBootstrapper
 
     #endregion
 }
+        */
