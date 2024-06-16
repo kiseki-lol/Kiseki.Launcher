@@ -10,7 +10,7 @@ public static class Web
 
     public static void Initialize()
     {
-        CurrentUrl = IsInMaintenance ? $"{Constants.MAINTENANCE_DOMAIN}.{Constants.BASE_URL}" : Constants.BASE_URL;
+        CurrentUrl = Constants.BASE_URL;
 
         // Synchronous block is intentional
         Task<HealthCheckStatus> task = GetHealthStatus();

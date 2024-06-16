@@ -231,7 +231,7 @@ public class Bootstrapper : Interfaces.IBootstrapper
             if (File.Exists(Path.Combine(Paths.StartMenu, $"{Constants.PROJECT_NAME} Studio {Arguments["Version"]}.lnk")))
                 File.Delete(Path.Combine(Paths.StartMenu, $"{Constants.PROJECT_NAME} Studio {Arguments["Version"]}.lnk"));
             
-            string studioPath = Path.Combine(Paths.Versions, Arguments["Version"], $"{Constants.PROJECT_NAME}.Studio.exe");
+            string studioPath = Path.Combine(Paths.Versions, Arguments["Version"], $"{Constants.PROJECT_NAME}.Aya.Studio.exe");
 
             ShellLink.Shortcut.CreateShortcut(studioPath, "", studioPath, 0)
                 .WriteToFile(Path.Combine(Paths.StartMenu, $"{Constants.PROJECT_NAME} Studio {Arguments["Version"]}.lnk"));
@@ -242,12 +242,21 @@ public class Bootstrapper : Interfaces.IBootstrapper
 
         Process player = new()
         {
+#if DEBUG
             StartInfo = new()
             {
-                FileName = Path.Combine(Paths.Versions, Arguments["Version"], $"{Constants.PROJECT_NAME}.Player.exe"),
+                FileName = Path.Combine(Paths.Versions, Arguments["Version"], $"{Constants.PROJECT_NAME}.Aya.Player.exe"),
+                Arguments = $"--console -a \"{Web.FormatUrl("/Login/Negotiate.ashx", null, true)}\" -t \"{Arguments["Ticket"]}\" -j \"{Arguments["JoinScript"]}\" ",
+                UseShellExecute = true,
+            }
+#else
+            StartInfo = new()
+            {
+                FileName = Path.Combine(Paths.Versions, Arguments["Version"], $"{Constants.PROJECT_NAME}.Aya.Player.exe"),
                 Arguments = $"-a \"{Web.FormatUrl("/Login/Negotiate.ashx", null, true)}\" -t \"{Arguments["Ticket"]}\" -j \"{Arguments["JoinScript"]}\" ",
                 UseShellExecute = true,
             }
+#endif
         };
 
         Task waiter = new(async () => {
@@ -297,7 +306,7 @@ public class Bootstrapper : Interfaces.IBootstrapper
     }
 
     #endregion
-    #region Installation
+    #region Infstallation
 
     public static void Install()
     {  
@@ -338,7 +347,7 @@ public class Bootstrapper : Interfaces.IBootstrapper
             .WriteToFile(Path.Combine(Paths.Desktop, $"{Constants.PROJECT_NAME}.lnk"));
 
         // We're finished
-        MessageBox.Show($"Sucessfully installed {Constants.PROJECT_NAME}!", Constants.PROJECT_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageBox.Show($"Successfully installed {Constants.PROJECT_NAME}!", Constants.PROJECT_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         Environment.Exit((int)Win32.ErrorCode.ERROR_SUCCESS);
     }
@@ -393,7 +402,7 @@ public class Bootstrapper : Interfaces.IBootstrapper
         Unregister();
         Protocol.Unregister();
 
-        answer = quiet ? DialogResult.OK : MessageBox.Show($"Sucessfully uninstalled {Constants.PROJECT_NAME}!", Constants.PROJECT_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        answer = quiet ? DialogResult.OK : MessageBox.Show($"Successfully uninstalled {Constants.PROJECT_NAME}!", Constants.PROJECT_NAME, MessageBoxButtons.OK, MessageBoxIcon.Information);
         if (answer == DialogResult.OK || answer == DialogResult.Cancel)
         {
             string command = $"del /Q \"{Paths.Application}\"";
